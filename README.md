@@ -2,10 +2,11 @@
 
 # global.rating.yml is for core services + rating services 
 
-# create VM 
+# create environment
+## create VM 
 ansible-playbook deploy_vmware_rating_cluster.yml
 
-# prepare openstack environment
+## prepare openstack environment
 for i in control-1 ;
 do 
   ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@$i ; 
@@ -16,13 +17,16 @@ cp -u ml2_conf.ini /etc/kolla/config/neutron/ml2_conf.ini
 cp -u globals.rating.yml /etc/kolla/globals.yml
 cp -u passsword.yml /etc/kolla/passsword.yml
 
+## prepare openstack
+ansible-playbook -i all-in-one prepare_all_node.yml
+ansible-playbook -i all-in-one prepare_storage_lvm.yml
 # deploy openstack
 kolla-ansible -i ./all-in-one bootstrap-servers
 kolla-ansible -i ./all-in-one prechecks
 kolla-ansible -i ./all-in-one deploy
 
 
-# openstack
+# configure openstack
 . /etc/kolla/admin-openrc-c1.sh
 openstack image create "cirros" --file /root/cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public
 openstack flavor create --id 1 --ram 1024 --disk 1  --vcpu 1 tiny
