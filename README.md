@@ -4,7 +4,7 @@
 
 # create environment
 ## create VM 
-ansible-playbook deploy_vmware_rating_cluster.yml
+ansible-playbook deploy_vmware_rating_cluster.yml -e node_template=centos-stream-8-kolla-1
 
 ## prepare openstack environment
 for i in control-1 ;
