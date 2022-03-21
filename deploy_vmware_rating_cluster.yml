@@ -16,7 +16,6 @@
         folder: /khanhchu
         name: "{{ item.name }}"
         state: poweredon
-        template: "{{ node_template }}"
         esxi_hostname: "{{ item.esxi_hostname }}"
         disk: "{{ item.disk }}"
         hardware:

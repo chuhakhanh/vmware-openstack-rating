@@ -8,9 +8,10 @@
 cp -u ml2_conf.ini /etc/kolla/config/neutron/ml2_conf.ini 
 cp -u globals.rating.yml /etc/kolla/globals.yml
 cp -u passsword.yml /etc/kolla/passsword.yml
-## create VM 
-ansible-playbook deploy_vmware_rating_cluster.yml -e node_template=centos-stream-8-kolla-2
 
+# I - deploy openstack base centos-stream-8
+## create VM 
+ansible-playbook deploy_vmware_rating_cluster.yml 
 ## prepare openstack environment
 for i in control-1 control-2 control-3;
 do 
@@ -25,7 +26,7 @@ ansible-playbook -i all-in-one-control-2 prepare_storage_lvm.yml
 
 ansible-playbook -i all-in-one-control-3 prepare_all_node.yml
 ansible-playbook -i all-in-one-control-3 prepare_storage_lvm.yml
-# deploy openstack base centos-stream-8
+
 
 ## /etc/kolla/global.yml vip=10.1.17.51
 kolla-ansible -i ./all-in-one bootstrap-servers
@@ -37,11 +38,14 @@ kolla-ansible --configdir ./ -i ./all-in-one-control-3 bootstrap-servers
 kolla-ansible -configdir ./ -i ./all-in-one-control-3 prechecks
 kolla-ansible -configdir ./ -i ./all-in-one-control-3 deploy
 
-# deploy openstack base centos-7-2009
+ 
+# II - deploy openstack base centos-7-2009
 
 source /venv_kolla-c2/bin/activate
 cd /venv_kolla-c2/share/
 
+## prepare openstack environment
+ansible-playbook deploy_vmware_rating_cluster.yml 
 # configure openstack
 . /etc/kolla/admin-openrc-c1.sh
 openstack image create "cirros" --file /root/cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public
