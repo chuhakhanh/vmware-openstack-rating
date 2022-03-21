@@ -12,7 +12,7 @@ cp -u passsword.yml /etc/kolla/passsword.yml
 ansible-playbook deploy_vmware_rating_cluster.yml -e node_template=centos-stream-8-kolla-2
 
 ## prepare openstack environment
-for i in control-1;
+for i in control-1 control-2 control-3;
 do 
   sshpass -p alo1234 ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@$i ; 
 done
@@ -20,11 +20,27 @@ done
 ansible-playbook -i all-in-one prepare_all_node.yml
 ansible-playbook -i all-in-one prepare_storage_lvm.yml
 
-# deploy openstack
+ansible-playbook -i all-in-one-control-2 prepare_all_node.yml
+ansible-playbook -i all-in-one-control-2 prepare_storage_lvm.yml
+
+ansible-playbook -i all-in-one-control-3 prepare_all_node.yml
+ansible-playbook -i all-in-one-control-3 prepare_storage_lvm.yml
+# deploy openstack base centos-stream-8
+
+## /etc/kolla/global.yml vip=10.1.17.51
 kolla-ansible -i ./all-in-one bootstrap-servers
 kolla-ansible -i ./all-in-one prechecks
 kolla-ansible -i ./all-in-one deploy
 
+## /etc/kolla/global.yml vip=10.1.17.53
+kolla-ansible --configdir ./ -i ./all-in-one-control-3 bootstrap-servers
+kolla-ansible -configdir ./ -i ./all-in-one-control-3 prechecks
+kolla-ansible -configdir ./ -i ./all-in-one-control-3 deploy
+
+# deploy openstack base centos-7-2009
+
+source /venv_kolla-c2/bin/activate
+cd /venv_kolla-c2/share/
 
 # configure openstack
 . /etc/kolla/admin-openrc-c1.sh
@@ -39,3 +55,5 @@ openstack subnet create --subnet-range 192.168.126.0/24 --gateway 192.168.126.1 
 net-id-pro-vlan111='openstack network list | grep pro-vlan111 | cut -f2 -d"|"'
 openstack server create --flavor 1 --image cirros --nic net-id=0507983d-b3a1-40b0-83c8-9f0cf4f4f6da inst1
 openstack server create --flavor 1 --image cirros --nic net-id=$net-id-pro-vlan111 inst1
+
+
