@@ -49,9 +49,9 @@
 10.1.17.52 control-2 
 10.1.17.53 control-3 
 
-10.1.17.54 control-4 
-10.1.17.55 control-5 
-10.1.17.56 control-6 
+10.1.17.54 compute-1 
+10.1.17.55 compute-2 
+10.1.17.56 compute-3 
 
 10.1.17.57 storage-1
 
@@ -59,9 +59,9 @@
 192.168.126.52 control-2.priv 
 192.168.126.53 control-3.priv 
 
-192.168.126.54 control-4.priv
-192.168.126.55 control-5.priv
-192.168.126.56 control-6.priv
+192.168.126.54 compute-1.priv
+192.168.126.55 compute-2.priv
+192.168.126.56 compute-3.priv
 
 192.168.126.57 storage-1.priv
 

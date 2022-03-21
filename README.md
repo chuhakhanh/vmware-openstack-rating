@@ -29,23 +29,15 @@ ansible-playbook -i all-in-one-control-3 prepare_storage_lvm.yml
 
 
 ## /etc/kolla/global.yml vip=10.1.17.51
-kolla-ansible -i ./all-in-one bootstrap-servers
-kolla-ansible -i ./all-in-one prechecks
-kolla-ansible -i ./all-in-one deploy
+kolla-ansible --configdir ./kolla -i ./all-in-one bootstrap-servers
+kolla-ansible --configdir ./kolla -i ./all-in-one prechecks
+kolla-ansible --configdir ./kolla -i ./all-in-one deploy
 
 ## /etc/kolla/global.yml vip=10.1.17.53
-kolla-ansible --configdir ./ -i ./all-in-one-control-3 bootstrap-servers
-kolla-ansible -configdir ./ -i ./all-in-one-control-3 prechecks
-kolla-ansible -configdir ./ -i ./all-in-one-control-3 deploy
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-3 bootstrap-servers
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-3 prechecks
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-3 deploy
 
- 
-# II - deploy openstack base centos-7-2009
-
-source /venv_kolla-c2/bin/activate
-cd /venv_kolla-c2/share/
-
-## prepare openstack environment
-ansible-playbook deploy_vmware_rating_cluster.yml 
 # configure openstack
 . /etc/kolla/admin-openrc-c1.sh
 openstack image create "cirros" --file /root/cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public

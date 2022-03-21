@@ -3,15 +3,15 @@
   become: true
   tasks:
   
-  - name: New 10GB partition in /dev/sdb
-    parted:
-      device: /dev/sdb
-      number: 1
-      state: present
-      part_end: 10GB
-
-  - name: Create a volume group on top of /dev/sdb1 with physical extent size = 32MB
-    community.general.lvg:
-      vg: cinder-volumes
-      pvs: /dev/sdb1
-      pesize: 32
+    - name: New 10GB partition in /dev/sdb
+      parted:
+        device: /dev/sdb
+        number: 1
+        state: present
+        part_end: 10GB
+  
+    - name: Create a volume group on top of /dev/sdb1 with physical extent size = 32MB
+      community.general.lvg:
+        vg: cinder-volumes
+        pvs: /dev/sdb1
+        pesize: 32
