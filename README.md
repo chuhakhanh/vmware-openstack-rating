@@ -18,8 +18,8 @@ do
   sshpass -p alo1234 ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@$i ; 
 done
 ## prepare openstack
-ansible-playbook -i all-in-one prepare_all_node.yml
-ansible-playbook -i all-in-one prepare_storage_lvm.yml
+ansible-playbook -i all-in-one-control-1 prepare_all_node.yml
+ansible-playbook -i all-in-one-control-1 prepare_storage_lvm.yml
 
 ansible-playbook -i all-in-one-control-2 prepare_all_node.yml
 ansible-playbook -i all-in-one-control-2 prepare_storage_lvm.yml
@@ -28,12 +28,18 @@ ansible-playbook -i all-in-one-control-3 prepare_all_node.yml
 ansible-playbook -i all-in-one-control-3 prepare_storage_lvm.yml
 
 
-## /etc/kolla/global.yml vip=10.1.17.51
-kolla-ansible --configdir ./kolla -i ./all-in-one bootstrap-servers
-kolla-ansible --configdir ./kolla -i ./all-in-one prechecks
-kolla-ansible --configdir ./kolla -i ./all-in-one deploy
+## kolla_internal_vip_address: "10.1.17.51"
+cp ./kolla/globals.centos8.rating.yml ./kolla/globals.yml
 
-## /etc/kolla/global.yml vip=10.1.17.53
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-1 bootstrap-servers
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-1 prechecks
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-1 deploy
+
+## kolla_internal_vip_address: "10.1.17.52"
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 bootstrap-servers
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 prechecks
+kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 deploy
+## kolla_internal_vip_address: "10.1.17.53"
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-3 bootstrap-servers
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-3 prechecks
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-3 deploy
