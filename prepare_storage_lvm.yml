@@ -1,5 +1,5 @@
 ---
-- hosts: control-1
+- hosts: control
   become: true
   tasks:
   

@@ -1,5 +1,5 @@
 ---
-- hosts: control-1
+- hosts: control
   vars_files: env.yml
   gather_facts: no
   become: true
