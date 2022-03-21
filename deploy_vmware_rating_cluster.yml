@@ -13,6 +13,7 @@
         datacenter: "{{ vcenter_datacenter }}"
         validate_certs: no
         resource_pool: "{{ item.resource_pool }}"
+        template: "{{ item.template }}"
         folder: /khanhchu
         name: "{{ item.name }}"
         state: poweredon
