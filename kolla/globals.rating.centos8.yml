@@ -310,7 +310,7 @@ enable_cloudkitty: "yes"
 #enable_cyborg: "no"
 #enable_designate: "no"
 #enable_destroy_images: "no"
-enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'elasticsearch') else 'no' }}"
+#enable_elasticsearch: "{{ 'yes' if enable_central_logging | bool or enable_osprofiler | bool or enable_skydive | bool or enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'elasticsearch') else 'no' }}"
 #enable_elasticsearch_curator: "no"
 #enable_etcd: "no"
 enable_fluentd: "no"
@@ -342,7 +342,7 @@ enable_horizon_cloudkitty: "{{ enable_cloudkitty | bool }}"
 #enable_horizon_vitrage: "{{ enable_vitrage | bool }}"
 #enable_horizon_watcher: "{{ enable_watcher | bool }}"
 #enable_horizon_zun: "{{ enable_zun | bool }}"
-#enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'influxdb') }}"
+enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'influxdb') }}"
 #enable_ironic: "no"
 #enable_ironic_ipxe: "no"
 #enable_ironic_neutron_agent: "{{ enable_neutron | bool and enable_ironic | bool }}"
@@ -541,7 +541,7 @@ cloudkitty_collector_backend: "gnocchi"
 # When the backend is "influxdb", we also enable Influxdb.
 # Also, when using 'influxdb' as the backend, we trigger the configuration/use
 # of Cloudkitty storage backend version 2.
-cloudkitty_storage_backend: "elasticsearch"
+cloudkitty_storage_backend: "influxdb"
 
 ###################
 # Designate options
