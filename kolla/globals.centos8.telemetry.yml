@@ -34,7 +34,7 @@ kolla_base_distro: "centos"
 kolla_install_type: "source"
 
 # Do not override this unless you know what you are doing.
-openstack_release: "master"
+openstack_release: "xena"
 
 # Docker image tag used by default.
 #openstack_tag: "{{ openstack_release ~ openstack_tag_suffix }}"
@@ -305,7 +305,7 @@ enable_cinder_backup: "no"
 enable_cinder_backend_lvm: "yes"
 #enable_cinder_backend_nfs: "no"
 #enable_cinder_backend_quobyte: "no"
-# enable_cloudkitty: "yes"
+enable_cloudkitty: "yes"
 #enable_collectd: "no"
 #enable_cyborg: "no"
 #enable_designate: "no"
@@ -321,7 +321,7 @@ enable_fluentd: "no"
 #enable_heat: "{{ enable_openstack_core | bool }}"
 enable_horizon: "{{ enable_openstack_core | bool }}"
 #enable_horizon_blazar: "{{ enable_blazar | bool }}"
-#enable_horizon_cloudkitty: "{{ enable_cloudkitty | bool }}"
+enable_horizon_cloudkitty: "{{ enable_cloudkitty | bool }}"
 #enable_horizon_designate: "{{ enable_designate | bool }}"
 #enable_horizon_freezer: "{{ enable_freezer | bool }}"
 #enable_horizon_heat: "{{ enable_heat | bool }}"
@@ -342,7 +342,7 @@ enable_horizon: "{{ enable_openstack_core | bool }}"
 #enable_horizon_vitrage: "{{ enable_vitrage | bool }}"
 #enable_horizon_watcher: "{{ enable_watcher | bool }}"
 #enable_horizon_zun: "{{ enable_zun | bool }}"
-#enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'influxdb') }}"
+enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and cloudkitty_storage_backend == 'influxdb') }}"
 #enable_ironic: "no"
 #enable_ironic_ipxe: "no"
 #enable_ironic_neutron_agent: "{{ enable_neutron | bool and enable_ironic | bool }}"
@@ -535,13 +535,13 @@ enable_prometheus: "yes"
 # Cloudkitty options
 #######################
 # Valid option is gnocchi
-# cloudkitty_collector_backend: "gnocchi"
+cloudkitty_collector_backend: "prometheus"
 # Valid options are 'sqlalchemy' or 'influxdb'. The default value is
 # 'influxdb', which matches the default in Cloudkitty since the Stein release.
 # When the backend is "influxdb", we also enable Influxdb.
 # Also, when using 'influxdb' as the backend, we trigger the configuration/use
 # of Cloudkitty storage backend version 2.
-# cloudkitty_storage_backend: "influxdb"
+cloudkitty_storage_backend: "influxdb"
 
 ###################
 # Designate options
