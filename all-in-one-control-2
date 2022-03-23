@@ -1,16 +1,16 @@
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
 [control]
-control-2  
+control-2
 
 [network]
-control-2  
+control-2
 
 [compute]
-control-2  
+control-2
 
 [storage]
-control-2  
+control-2
 
 [monitoring]
 control-2
@@ -699,6 +699,9 @@ elasticsearch
 [prometheus-blackbox-exporter:children]
 monitoring
 
+[prometheus-libvirt-exporter:children]
+compute
+
 [masakari-api:children]
 control
 
@@ -732,3 +735,12 @@ ovn-database
 
 [ovn-sb-db:children]
 ovn-database
+
+[venus:children]
+monitoring
+
+[venus-api:children]
+venus
+
+[venus-manager:children]
+venus

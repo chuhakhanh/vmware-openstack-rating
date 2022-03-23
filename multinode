@@ -1,22 +1,46 @@
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
 [control]
-control-1  
+# These hostname must be resolvable from your deployment host
+control01
+control02
+control03
 
+# The above can also be specified as follows:
+#control[01:03]     ansible_user=kolla
+
+# The network nodes are where your l3-agent and loadbalancers will run
+# This can be the same as a host in the control group
 [network]
-control-1  
+network01
+network02
 
 [compute]
-control-1  
-
-[storage]
-control-1  
+compute01
 
 [monitoring]
-control-1       
+monitoring01
+
+# When compute nodes and control nodes use different interfaces,
+# you need to comment out "api_interface" and other interfaces from the globals.yml
+# and specify like below:
+#compute01 neutron_external_interface=eth0 api_interface=em1 storage_interface=em1 tunnel_interface=em1
+
+[storage]
+storage01
 
 [deployment]
 localhost       ansible_connection=local
+
+[baremetal:children]
+control
+network
+compute
+storage
+monitoring
+
+[tls-backend:children]
+control
 
 # You can explicitly specify which hosts run each project by updating the
 # groups in the sections below. Common services are grouped together.
@@ -31,17 +55,17 @@ monitoring
 [collectd:children]
 compute
 
-[baremetal:children]
-control
-
-[tls-backend:children]
-control
-
 [grafana:children]
 monitoring
 
 [etcd:children]
 control
+
+[influxdb:children]
+monitoring
+
+[prometheus:children]
+monitoring
 
 [kafka:children]
 control
@@ -137,14 +161,11 @@ control
 [murano:children]
 control
 
-[ironic:children]
+[solum:children]
 control
 
-[influxdb:children]
-monitoring
-
-[prometheus:children]
-monitoring
+[ironic:children]
+control
 
 [magnum:children]
 control
@@ -152,16 +173,10 @@ control
 [sahara:children]
 control
 
-[solum:children]
-control
-
 [mistral:children]
 control
 
 [manila:children]
-control
-
-[gnocchi:children]
 control
 
 [ceilometer:children]
@@ -174,16 +189,19 @@ control
 control
 compute
 
+[gnocchi:children]
+control
+
 [tacker:children]
 control
 
-[vitrage:children]
+[trove:children]
 control
 
 [senlin:children]
 control
 
-[trove:children]
+[vitrage:children]
 control
 
 [watcher:children]
@@ -369,16 +387,6 @@ barbican
 [barbican-worker:children]
 barbican
 
-# Trove
-[trove-api:children]
-trove
-
-[trove-conductor:children]
-trove
-
-[trove-taskmanager:children]
-trove
-
 # Heat
 [heat-api:children]
 heat
@@ -457,6 +465,13 @@ magnum
 [magnum-conductor:children]
 magnum
 
+# Sahara
+[sahara-api:children]
+sahara
+
+[sahara-engine:children]
+sahara
+
 # Solum
 [solum-api:children]
 solum
@@ -488,6 +503,19 @@ mistral
 
 [mistral-event-engine:children]
 mistral
+
+# Ceilometer
+[ceilometer-central:children]
+ceilometer
+
+[ceilometer-notification:children]
+ceilometer
+
+[ceilometer-compute:children]
+compute
+
+[ceilometer-ipmi:children]
+compute
 
 # Aodh
 [aodh-api:children]
@@ -522,25 +550,15 @@ gnocchi
 [gnocchi-metricd:children]
 gnocchi
 
-# Sahara
-[sahara-api:children]
-sahara
+# Trove
+[trove-api:children]
+trove
 
-[sahara-engine:children]
-sahara
+[trove-conductor:children]
+trove
 
-# Ceilometer
-[ceilometer-central:children]
-ceilometer
-
-[ceilometer-notification:children]
-ceilometer
-
-[ceilometer-compute:children]
-compute
-
-[ceilometer-ipmi:children]
-compute
+[trove-taskmanager:children]
+trove
 
 # Multipathd
 [multipathd:children]
@@ -699,6 +717,9 @@ elasticsearch
 [prometheus-blackbox-exporter:children]
 monitoring
 
+[prometheus-libvirt-exporter:children]
+compute
+
 [masakari-api:children]
 control
 
@@ -732,3 +753,12 @@ ovn-database
 
 [ovn-sb-db:children]
 ovn-database
+
+[venus:children]
+monitoring
+
+[venus-api:children]
+venus
+
+[venus-manager:children]
+venus

@@ -1,19 +1,19 @@
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
 [control]
-control-3
+localhost       ansible_connection=local
 
 [network]
-control-3  
+localhost       ansible_connection=local
 
 [compute]
-control-3  
+localhost       ansible_connection=local
 
 [storage]
-control-3  
+localhost       ansible_connection=local
 
 [monitoring]
-control-3
+localhost       ansible_connection=local
 
 [deployment]
 localhost       ansible_connection=local
@@ -699,6 +699,9 @@ elasticsearch
 [prometheus-blackbox-exporter:children]
 monitoring
 
+[prometheus-libvirt-exporter:children]
+compute
+
 [masakari-api:children]
 control
 
@@ -732,3 +735,12 @@ ovn-database
 
 [ovn-sb-db:children]
 ovn-database
+
+[venus:children]
+monitoring
+
+[venus-api:children]
+venus
+
+[venus-manager:children]
+venus

@@ -69,6 +69,7 @@ kolla-ansible --configdir ./kolla -i ./all-in-one-control-1 deploy
 
 ## kolla_internal_vip_address: "10.1.17.52"
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 bootstrap-servers
+rm /var/run/libvirt/libvirt-sock
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 prechecks
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 deploy
 ## kolla_internal_vip_address: "10.1.17.53"
