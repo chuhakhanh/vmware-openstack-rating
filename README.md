@@ -27,11 +27,8 @@ pyvmomi             7.0.3
 
 ## pip list to show version
 pip install -U 'ansible<3.0'
-
 Python             3.8.12
 pip                22.0.4
-
-
 pyvmomi            7.0.3
 
 
@@ -70,6 +67,7 @@ kolla-ansible --configdir ./kolla -i ./all-in-one-control-1 deploy
 ## kolla_internal_vip_address: "10.1.17.52"
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 bootstrap-servers
 rm /var/run/libvirt/libvirt-sock
+chronyc tracking
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 prechecks
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 deploy
 ## kolla_internal_vip_address: "10.1.17.53"
