@@ -1,0 +1,8 @@
+metrics:
+  image.size:
+    groupby:
+      - id
+    metadata:
+      - disk_format
+    unit: MiB # Final unit
+    factor: 1/1048576 # Dividing by 1024 * 1024

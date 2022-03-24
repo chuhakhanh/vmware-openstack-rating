@@ -34,7 +34,7 @@ kolla_base_distro: "centos"
 kolla_install_type: "source"
 
 # Do not override this unless you know what you are doing.
-openstack_release: "master"
+openstack_release: "xena"
 
 # Docker image tag used by default.
 #openstack_tag: "{{ openstack_release ~ openstack_tag_suffix }}"
@@ -292,7 +292,7 @@ enable_haproxy: "no"
 #enable_aodh: "no"
 #enable_barbican: "no"
 #enable_blazar: "no"
-enable_ceilometer: "yes"
+# enable_ceilometer: "yes"
 #enable_ceilometer_ipmi: "no"
 #enable_cells: "no"
 #enable_central_logging: "no"
@@ -315,7 +315,7 @@ enable_cloudkitty: "yes"
 #enable_etcd: "no"
 enable_fluentd: "no"
 #enable_freezer: "no"
-enable_gnocchi: "yes"
+#enable_gnocchi: "yes"
 #enable_gnocchi_statsd: "no"
 #enable_grafana: "{{ enable_monasca | bool }}"
 #enable_heat: "{{ enable_openstack_core | bool }}"
@@ -324,7 +324,7 @@ enable_horizon: "{{ enable_openstack_core | bool }}"
 enable_horizon_cloudkitty: "{{ enable_cloudkitty | bool }}"
 #enable_horizon_designate: "{{ enable_designate | bool }}"
 #enable_horizon_freezer: "{{ enable_freezer | bool }}"
-enable_horizon_heat: "{{ enable_heat | bool }}"
+#enable_horizon_heat: "{{ enable_heat | bool }}"
 #enable_horizon_ironic: "{{ enable_ironic | bool }}"
 #enable_horizon_magnum: "{{ enable_magnum | bool }}"
 #enable_horizon_manila: "{{ enable_manila | bool }}"
@@ -386,7 +386,7 @@ enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and clou
 #enable_ovs_dpdk: "no"
 #enable_osprofiler: "no"
 #enable_placement: "{{ enable_nova | bool or enable_zun | bool }}"
-#enable_prometheus: "no"
+enable_prometheus: "yes"
 #enable_qdrouterd: "{{ 'yes' if om_rpc_transport == 'amqp' else 'no' }}"
 #enable_redis: "no"
 #enable_sahara: "no"
@@ -535,7 +535,7 @@ enable_influxdb: "{{ enable_monasca | bool or (enable_cloudkitty | bool and clou
 # Cloudkitty options
 #######################
 # Valid option is gnocchi
-cloudkitty_collector_backend: "gnocchi"
+cloudkitty_collector_backend: "prometheus"
 # Valid options are 'sqlalchemy' or 'influxdb'. The default value is
 # 'influxdb', which matches the default in Cloudkitty since the Stein release.
 # When the backend is "influxdb", we also enable Influxdb.
@@ -695,16 +695,16 @@ nova_compute_virt_type: "qemu"
 ############
 # Prometheus
 ############
-#enable_prometheus_server: "{{ enable_prometheus | bool }}"
+enable_prometheus_server: "{{ enable_prometheus | bool }}"
 #enable_prometheus_haproxy_exporter: "{{ enable_haproxy | bool }}"
 #enable_prometheus_mysqld_exporter: "{{ enable_mariadb | bool }}"
-#enable_prometheus_node_exporter: "{{ enable_prometheus | bool }}"
+enable_prometheus_node_exporter: "{{ enable_prometheus | bool }}"
 #enable_prometheus_cadvisor: "{{ enable_prometheus | bool }}"
 #enable_prometheus_fluentd_integration: "{{ enable_prometheus | bool and enable fluentd | bool }}"
 #enable_prometheus_memcached: "{{ enable_prometheus | bool }}"
 #enable_prometheus_alertmanager: "{{ enable_prometheus | bool }}"
 #enable_prometheus_ceph_mgr_exporter: "no"
-#enable_prometheus_openstack_exporter: "{{ enable_prometheus | bool }}"
+enable_prometheus_openstack_exporter: "{{ enable_prometheus | bool }}"
 #enable_prometheus_elasticsearch_exporter: "{{ enable_prometheus | bool and enable_elasticsearch | bool }}"
 #enable_prometheus_blackbox_exporter: "{{ enable_prometheus | bool }}"
 
