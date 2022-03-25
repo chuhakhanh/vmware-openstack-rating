@@ -1,11 +1,13 @@
 # 
 ---
 - hosts: control
+  connection: local
   become: true
   vars_files: vars/os_env.yml
-  ansible_python_interpreter: /venv-2/bin/python
-  tasks:
+  vars:
+    ansible_python_interpreter: /venv-2/bin/python
 
+  tasks:
     - name: "Create project flavor"
       openstack.cloud.compute_flavor:
         auth: "{{ os_auth_control_2 }}"
