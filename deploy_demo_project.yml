@@ -3,6 +3,7 @@
 - hosts: control
   become: true
   vars_files: vars/os_env.yml
+  ansible_python_interpreter: /venv-2/bin/python
   tasks:
 
     - name: "Create project flavor"
