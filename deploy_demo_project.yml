@@ -38,7 +38,7 @@
         network_name: "{{ item.network_name }}"
         name: "{{ item.name }}"
         cidr: "{{ item.cidr }}"
-  #      dns_nameservers: "{{ item.dns_nameservers }}"
+        dns_nameservers: "{{ item.dns_nameservers }}"
         ip_version: "{{ item.ip_version }}"
         gateway_ip: "{{ item.gateway_ip }}"
         allocation_pool_start: "{{ item.allocation_pool_start }}"
