@@ -49,19 +49,18 @@ demo_subnets:
   -  name: provider-vlan111-subnet1
      network_name: provider-vlan111
      cidr: 10.1.0.0/16
-     ip_version: 4 
+     ip_version: 4
      allocation_pool_start: 10.1.17.120
-     allocation_pool_end: 10.1.17.150 
+     allocation_pool_end: 10.1.17.150
      gateway_ip: 10.1.0.1
-     dns_nameservers:
-       - 8.8.8.8
+     dns_nameservers: 8.8.8.8
 
   -  name: provider-vlan126-subnet1
      network_name: provider-vlan126
      cidr: 192.168.126.0/24
      ip_version: 4 
      allocation_pool_start: 192.168.126.120
-     allocation_pool_end: 192.168.126.150 
+     allocation_pool_end: 192.168.126.150
      
 demo_images:
   - name: cirros
