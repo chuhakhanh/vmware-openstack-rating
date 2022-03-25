@@ -50,12 +50,9 @@ demo_subnets:
     network_name: provider-vlan111
     cidr: 10.1.0.0/16
     ip_version: 4
-    allocation_pool_start: "10.1.17.120"
-    allocation_pool_end: "10.1.17.150"
-    gateway_ip: "10.1.0.1"
-    dns_nameservers: 
-      - "8.8.8.8"
-      - "8.8.8.7"
+    allocation_pool_start: 10.1.17.120
+    allocation_pool_end: 10.1.17.150
+    gateway_ip: 10.1.0.1
 
   - name: provider-vlan126-subnet1
     network_name: provider-vlan126
@@ -80,7 +77,7 @@ demo_images:
 
 demo_security_groups:
   - name: allow_ssh_icmp
-    description: "Allow source from public ping and ssh to instance"
+    description: Allow source from public ping and ssh to instance
 
 demo_security_group_rules:
   - name: allow_ssh_icmp_rule_ssh
