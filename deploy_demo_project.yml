@@ -36,12 +36,12 @@
         auth: "{{ os_auth_control_2 }}"
         state: present
         network_name: "{{ item.network_name }}"
-        cidr: "{{ item.cidr }}"
-        dns_nameservers: "{{ item.dns_nameservers }}"
-        ip_version: "{{ item.ip_version }}"
-        gateway_ip: "{{ item.gateway_ip }}"
-        allocation_pool_start: "{{ item.allocation_pool_start }}"
-        allocation_pool_end: "{{ item.allocation_pool_end }}"
+#        cidr: "{{ item.cidr }}"
+#        dns_nameservers: "{{ item.dns_nameservers }}"
+#        ip_version: "{{ item.ip_version }}"
+#        gateway_ip: "{{ item.gateway_ip }}"
+#        allocation_pool_start: "{{ item.allocation_pool_start }}"
+#        allocation_pool_end: "{{ item.allocation_pool_end }}"
       loop: "{{ demo_subnets }}" 
 #    - name: "Create project subnet"
 #      openstack.cloud.subnet:
