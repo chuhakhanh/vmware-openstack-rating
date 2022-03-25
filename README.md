@@ -52,7 +52,6 @@ do
   sshpass -p alo1234 ssh-copy-id -f -i ~/.ssh/id_rsa.pub root@$i ; 
 done
 ## prepare openstack
-
 ansible-playbook -i all-in-one-control-2 prepare_all_node.yml
 ansible-playbook -i all-in-one-control-2 prepare_storage_lvm.yml
 
@@ -75,6 +74,8 @@ kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 prechecks
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 deploy
 
 # configure openstack
+ansible-playbook -i all-in-one-control-2 demo_flavor.yml
+
 . /etc/kolla/admin-openrc-c1.sh
 openstack image create "cirros" --file /root/cirros-0.4.0-x86_64-disk.img --disk-format qcow2 --container-format bare --public
 openstack flavor create --id 1 --ram 1024 --disk 1  --vcpu 1 tiny

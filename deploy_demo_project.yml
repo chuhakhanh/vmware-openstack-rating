@@ -1,0 +1,92 @@
+# 
+---
+- hosts: control
+  become: true
+  vars_files: vars/os_env.yml
+  tasks:
+
+    - name: "Create project flavor"
+      openstack.cloud.compute_flavor:
+        auth: "{{ os-auth-control-2 }}"
+        state: present
+        name: "{{ item.name }}"
+        ram: "{{ item.ram }}"
+        vcpus: "{{ item.vcpus }}"
+        disk: "{{ item.disk }}"
+        ephemeral: "{{ item.ephemeral }}"
+      loop: "{{ demo_flavors }}" 
+        
+    - name: "Create project networks"
+      openstack.cloud.network:
+        auth: "{{ os-auth-control-2 }}"
+        state: present
+        provider_network_type: "{{ item.provider_network_type }}"
+        provider_segmentation_id: "{{ item.provider_segmentation_id }}"
+        provider_physical_network: "{{ item.provider_physical_network }}"
+        external: "{{ item.external }}"
+        shared: "{{ item.shared }}"
+        name: "{{ item.name }}"
+      loop: "{{ demo_networks }}" 
+
+    - name: "Create project subnet"
+      openstack.cloud.subnet:
+        auth: "{{ os-auth-control-2 }}"
+        state: present
+        network_name: "{{ item.network_name }}"
+        name: "{{ item.name }}"
+        cidr: "{{ item.cidr }}"
+        dns_nameservers: "{{ item.dns_nameservers }}"
+        ip_version: "{{ item.ip_version }}"
+        gateway_ip: "{{ item.gateway_ip }}"
+        allocation_pool_start: "{{ item.allocation_pool_start }}"
+        allocation_pool_end: "{{ item.allocation_pool_end }}"
+      loop: "{{ demo_subnets }}" 
+
+
+    - name: "Create project images"
+      openstack.cloud.image:
+        auth: "{{ os-auth-control-2 }}"
+        name: "{{ item.name }}"
+        state: present
+        container_format: "{{ item.container_format }}"
+        disk_format: "{{ item.disk_format }}"
+        filename: "{{ item.filename }}"
+        kernel: "{{ item.kernel }}"
+        ramdisk: "{{ item.ramdisk }}"
+        tags: "{{ item.tags }}"
+        properties:
+          cpu_arch: "{{ item.cpu_arch }}"
+          distro: "{{ item.distro }}"
+      loop: "{{ demo_images }}" 
+      ignore_errors: yes
+
+    - name: "Create security groups"
+      openstack.cloud.image:
+        auth: "{{ os-auth-control-2 }}"
+        state: present
+        name: "{{ item.name }}"
+        description: "{{ item.description }}"
+      loop: "{{ demo_security_groups  }}" 
+
+    - name: "Create security group rules"
+      openstack.cloud.image:
+        auth: "{{ os-auth-control-2 }}"
+        state: present
+        name: "{{ item.name }}"
+        security_group: "{{ item.security_group }}"
+        protocol: "{{ item.description }}"
+        port_range_min: "{{ item.port_range_min }}"
+        port_range_max: "{{ item.port_range_max }}"
+        remote_ip_prefix: "{{ item.remote_ip_prefix }}" 
+      loop: "{{ demo_security_group_rules  }}" 
+
+    - name:  Creates a new instance and attaches to a specific network
+      openstack.cloud.server:
+        auth: "{{ os-auth-control-2 }}"
+        name: "{{ item.name }}" 
+        state: present
+        image: "{{ item.image }}" 
+        flavor: "{{ item.flavor }}" 
+        network: "{{ item.network }}" 
+        security_groups: "{{ item.security_groups }}" 
+      loop: "{{ demo_instances  }}" 
