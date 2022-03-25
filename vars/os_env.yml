@@ -6,63 +6,63 @@ os_auth_control_2:
   domain_id: default
 
 demo_flavors:
-  -  name: x1.tiny
-     ram: 1024
-     vcpus: 1
-     disk: 1
-     ephemeral: 0
+  - name: x1.tiny
+    ram: 1024
+    vcpus: 1
+    disk: 1
+    ephemeral: 0
 
-  -  name: x1.small
-     ram: 4098
-     vcpus: 2
-     disk: 20
-     ephemeral: 0
+  - name: x1.small
+    ram: 4098
+    vcpus: 2
+    disk: 20
+    ephemeral: 0
   
-  -  name: x1.medium
-     ram: 8192
-     vcpus: 4
-     disk: 50
-     ephemeral: 0
+  - name: x1.medium
+    ram: 8192
+    vcpus: 4
+    disk: 50
+    ephemeral: 0
 
-  -  name: x1.large
-     ram: 16384
-     vcpus: 4
-     disk: 50
-     ephemeral: 0
+  - name: x1.large
+    ram: 16384
+    vcpus: 4
+    disk: 50
+    ephemeral: 0
 
 demo_networks:
-  -  name: provider-vlan111
-     provider_network_type: vlan
-     provider_segmentation_id: 111
-     provider_physical_network: physnet1
-     external: True
-     shared: True
-    
-  -  name: provider-vlan126
-     provider_network_type: vlan
-     provider_segmentation_id: 126
-     provider_physical_network: physnet1
-     external: True
-     shared: True
+  - name: provider-vlan111
+    provider_network_type: vlan
+    provider_segmentation_id: 111
+    provider_physical_network: physnet1
+    external: True
+    shared: True
+  
+  - name: provider-vlan126
+    provider_network_type: vlan
+    provider_segmentation_id: 126
+    provider_physical_network: physnet1
+    external: True
+    shared: True
 
 demo_subnets:
-  -  name: provider-vlan111-subnet1
-     network_name: provider-vlan111
-     cidr: 10.1.0.0/16
-     ip_version: 4
-     allocation_pool_start: 10.1.17.120
-     allocation_pool_end: 10.1.17.150
-     gateway_ip: 10.1.0.1
-     dns_nameservers: 
-       -  8.8.8.8
-       -  8.8.8.7
+  - name: provider-vlan111-subnet1
+    network_name: provider-vlan111
+    cidr: 10.1.0.0/16
+    ip_version: 4
+    allocation_pool_start: 10.1.17.120
+    allocation_pool_end: 10.1.17.150
+    gateway_ip: 10.1.0.1
+    dns_nameservers: 
+      - 8.8.8.8
+      - 8.8.8.7
 
-  -  name: provider-vlan126-subnet1
-     network_name: provider-vlan126
-     cidr: 192.168.126.0/24
-     ip_version: 4 
-     allocation_pool_start: 192.168.126.120
-     allocation_pool_end: 192.168.126.150
+  - name: provider-vlan126-subnet1
+    network_name: provider-vlan126
+    cidr: 192.168.126.0/24
+    ip_version: 4 
+    allocation_pool_start: 192.168.126.120
+    allocation_pool_end: 192.168.126.150
      
 demo_images:
   - name: cirros
@@ -96,9 +96,9 @@ demo_security_group_rules:
     remote_ip_prefix: 0.0.0.0/0
 
 demo_instances:
-    - name: Creates a new instance and attaches to a specific network
-      image: cirros
-      flavor: tiny
-      network: provider-vlan111 
-      security_groups: allow_ssh_icmp 
+  - name: Creates a new instance and attaches to a specific network
+    image: cirros
+    flavor: tiny
+    network: provider-vlan111 
+    security_groups: allow_ssh_icmp 
       
