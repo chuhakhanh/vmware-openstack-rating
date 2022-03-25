@@ -77,7 +77,7 @@ demo_images:
     kernel: cirros-vmlinuz
     ramdisk: cirros-initrd
     tags:
-      - custom
+       - custom
     properties:
       cpu_arch: x86_64
       distro: x64
