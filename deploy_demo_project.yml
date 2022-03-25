@@ -56,8 +56,8 @@
         ramdisk: "{{ item.ramdisk }}"
         tags: "{{ item.tags }}"
         properties:
-          cpu_arch: "{{ item.cpu_arch }}"
-          distro: "{{ item.distro }}"
+          cpu_arch: "{{ item.properties.cpu_arch }}"
+          distro: "{{ item.properties.distro }}"
       loop: "{{ demo_images }}" 
       
     - name: "Create security groups"
