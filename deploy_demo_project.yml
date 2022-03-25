@@ -44,6 +44,7 @@
 #      loop: "{{ demo_subnets }}" 
     - name: "Create project subnet"
       openstack.cloud.subnet:
+        auth: "{{ os_auth_control_2 }}"
         state: present
         network_name: provider-vlan111
         name: provider-vlan111-subnet1
