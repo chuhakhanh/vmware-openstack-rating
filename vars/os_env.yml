@@ -87,16 +87,14 @@ demo_security_groups:
     description: Allow source from public ping and ssh to instance
 
 demo_security_group_rules:
-  - name: allow_ssh_icmp_rule_ssh
-    protocol: tcp
+  - protocol: tcp
     direction: ingress
     port_range_min: 22
     port_range_max: 22
     security_group: allow_ssh_icmp
     remote_ip_prefix: 0.0.0.0/0
 
-  - name: allow_ssh_icmp_rule_icmp
-    protocol: icmp
+  - protocol: icmp
     direction: ingress
     port_range_min: -1
     port_range_max: -1
