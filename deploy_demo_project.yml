@@ -7,7 +7,7 @@
 
     - name: "Create project flavor"
       openstack.cloud.compute_flavor:
-        auth: "{{ os-auth-control-2 }}"
+        auth: "{{ os_auth_control_2 }}"
         state: present
         name: "{{ item.name }}"
         ram: "{{ item.ram }}"
@@ -18,7 +18,7 @@
         
     - name: "Create project networks"
       openstack.cloud.network:
-        auth: "{{ os-auth-control-2 }}"
+        auth: "{{ os_auth_control_2 }}"
         state: present
         provider_network_type: "{{ item.provider_network_type }}"
         provider_segmentation_id: "{{ item.provider_segmentation_id }}"
@@ -30,7 +30,7 @@
 
     - name: "Create project subnet"
       openstack.cloud.subnet:
-        auth: "{{ os-auth-control-2 }}"
+        auth: "{{ os_auth_control_2 }}"
         state: present
         network_name: "{{ item.network_name }}"
         name: "{{ item.name }}"
@@ -45,7 +45,7 @@
 
     - name: "Create project images"
       openstack.cloud.image:
-        auth: "{{ os-auth-control-2 }}"
+        auth: "{{ os_auth_control_2 }}"
         name: "{{ item.name }}"
         state: present
         container_format: "{{ item.container_format }}"
@@ -62,7 +62,7 @@
 
     - name: "Create security groups"
       openstack.cloud.image:
-        auth: "{{ os-auth-control-2 }}"
+        auth: "{{ os_auth_control_2 }}"
         state: present
         name: "{{ item.name }}"
         description: "{{ item.description }}"
@@ -70,7 +70,7 @@
 
     - name: "Create security group rules"
       openstack.cloud.image:
-        auth: "{{ os-auth-control-2 }}"
+        auth: "{{ os_auth_control_2 }}"
         state: present
         name: "{{ item.name }}"
         security_group: "{{ item.security_group }}"
@@ -82,7 +82,7 @@
 
     - name:  Creates a new instance and attaches to a specific network
       openstack.cloud.server:
-        auth: "{{ os-auth-control-2 }}"
+        auth: "{{ os_auth_control_2 }}"
         name: "{{ item.name }}" 
         state: present
         image: "{{ item.image }}" 

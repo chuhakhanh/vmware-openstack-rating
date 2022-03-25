@@ -1,4 +1,4 @@
-os-auth-control-2:
+os_auth_control_2:
   auth_url: http://10.1.17.52:35357/v3
   username: admin
   password: 6tGC8eyFRERxEM03njQbfFH3UNPRZlCusa0rJdyu
