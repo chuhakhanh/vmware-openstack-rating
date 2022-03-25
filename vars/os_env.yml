@@ -63,7 +63,11 @@ demo_subnets:
     ip_version: 4 
     allocation_pool_start: 192.168.126.120
     allocation_pool_end: 192.168.126.150
-     
+    gateway_ip: 192.168.126.1
+    dns_nameservers: 
+       - 8.8.8.8
+       - 8.8.8.7
+
 demo_images:
   - name: cirros
     container_format: bare
