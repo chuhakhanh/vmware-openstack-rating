@@ -54,7 +54,7 @@ demo_subnets:
      allocation_pool_end: 10.1.17.150 
      gateway_ip: 10.1.0.1
      dns_nameservers:
-        - 8.8.8.8
+       - 8.8.8.8
 
   -  name: provider-vlan126-subnet1
      network_name: provider-vlan126
