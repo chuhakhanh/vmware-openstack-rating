@@ -102,7 +102,7 @@ demo_security_group_rules:
     remote_ip_prefix: 0.0.0.0/0
 
 demo_instances:
-  - name: Creates a new instance and attaches to a specific network
+  - name: inst1
     image: cirros
     flavor: tiny
     network: provider-vlan111 
