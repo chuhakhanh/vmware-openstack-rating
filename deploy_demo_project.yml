@@ -30,28 +30,29 @@
         name: "{{ item.name }}"
       loop: "{{ demo_networks }}" 
 
-#   - name: "Create project subnet"
-#     openstack.cloud.subnet:
-#       name: "{{ item.name }}"
-#       auth: "{{ os_auth_control_2 }}"
-#       state: present
-#       network_name: "{{ item.network_name }}"
-#       cidr: "{{ item.cidr }}"
-#       ip_version: "{{ item.ip_version }}"
-#       gateway_ip: "{{ item.gateway_ip }}"
-#       allocation_pool_start: "{{ item.allocation_pool_start }}"
-#       allocation_pool_end: "{{ item.allocation_pool_end }}"
-#      loop: "{{ demo_subnets }}" 
     - name: "Create project subnet"
       openstack.cloud.subnet:
+        name: "{{ item.name }}"
         auth: "{{ os_auth_control_2 }}"
         state: present
-        network_name: provider-vlan111
-        name: provider-vlan111-subnet1
-        cidr: 10.1.0.0/16
-        dns_nameservers:
-           - 8.8.8.7
-           - 8.8.8.8
+        network_name: "{{ item.network_name }}"
+        cidr: "{{ item.cidr }}"
+        dns_nameservers: "{{ item.dns_nameservers }}"
+        ip_version: "{{ item.ip_version }}"
+        gateway_ip: "{{ item.gateway_ip }}"
+        allocation_pool_start: "{{ item.allocation_pool_start }}"
+        allocation_pool_end: "{{ item.allocation_pool_end }}"
+      loop: "{{ demo_subnets }}" 
+#    - name: "Create project subnet"
+#      openstack.cloud.subnet:
+#        auth: "{{ os_auth_control_2 }}"
+#        state: present
+#        network_name: provider-vlan111
+#        name: provider-vlan111-subnet1
+#        cidr: 10.1.0.0/16
+#        dns_nameservers:
+#           - 8.8.8.7
+#           - 8.8.8.8
 
     - name: "Create project images"
       openstack.cloud.image:
