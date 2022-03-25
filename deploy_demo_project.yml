@@ -78,6 +78,7 @@
         port_range_min: "{{ item.port_range_min }}"
         port_range_max: "{{ item.port_range_max }}"
         remote_ip_prefix: "{{ item.remote_ip_prefix }}" 
+        direction: "{{ item.direction }}" 
       loop: "{{ demo_security_group_rules }}" 
 
     - name:  Creates a new instance and attaches to a specific network
