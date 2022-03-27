@@ -39,6 +39,7 @@
 10.1.17.30 ultility # dns, ntp
 10.1.17.31 truenas
 10.1.17.32 pfsense
+10.1.17.33 repo
 10.1.17.40 contol2
 10.1.17.41 vc1.svt.hn
 

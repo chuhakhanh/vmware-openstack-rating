@@ -65,11 +65,11 @@ rm /var/run/libvirt/libvirt-sock
 chronyc tracking
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 prechecks
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 deploy
+kolla-ansible post-deploy 
+source /etc/kolla/admin-openrc-c1.sh 
 
 # deploy demo project in openstack
 ansible-playbook -i all-in-one-control-2 deploy_demo_project.yml
 ansible-playbook -i all-in-one-control-2 deploy_demo_project.yml --start-at-task="Create security group rules"
-
-. /etc/kolla/admin-openrc-c1.sh
 
 
