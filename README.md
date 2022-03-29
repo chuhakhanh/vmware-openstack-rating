@@ -31,6 +31,7 @@ ansible-base       2.10.17
 kolla-ansible      13.0.2.dev92
 pip                22.0.4
 pyvmomi            7.0.3
+openstacksdk           0.59.0
 
 cd /venv-2/share
 git clone https://github.com/chuhakhanh/vmware-openstack-rating

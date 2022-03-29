@@ -31,6 +31,34 @@ vms:
         netmask: 255.255.255.0
         device_type: vmxnet3
 
+  - name: control-1
+    esxi_hostname: 10.1.17.12
+    resource_pool: c1-kolla-ops-centos8
+    template: centos-stream-8-kolla-2
+    disk:
+    - size_gb: 50
+      type: thin
+      datastore: node2-ssd1
+
+    - size_gb: 50
+      type: thin
+      datastore: node2-ssd1
+    
+    networks:
+      - name: vlan_111
+        ip: 10.1.17.51
+        netmask: 255.255.0.0
+        gateway: 10.1.0.1
+        device_type: vmxnet3
+
+      - name: vlan_all
+        device_type: vmxnet3
+
+      - name: vlan_126
+        ip: 192.168.126.51
+        netmask: 255.255.255.0
+        device_type: vmxnet3
+
   - name: control-2
     esxi_hostname: 10.1.17.12
     resource_pool: c1-kolla-ops-centos8
