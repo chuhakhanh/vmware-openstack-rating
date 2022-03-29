@@ -25,6 +25,8 @@ pip install -U 'ansible<3.0'
 pip install pyvmomi                                                                                                                                                
 
 ## pip list to show version
+pip3 install 'ansible==2.10.7'
+
 pip list
 ansible            2.10.7
 ansible-base       2.10.17

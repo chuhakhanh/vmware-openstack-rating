@@ -7,8 +7,13 @@
   tasks: 
     - name: Copy host file to etc host
       copy:
-        src: hosts
+        src: config/hosts
         dest: /etc/hosts
+  
+    - name: Copy host file to etc host
+      copy:
+        src: config/2022_03.repo
+        dest: /etc/yum.repos.d/
       
     - name: Make sure we have yum-utils
       yum: name=yum-utils state=latest
