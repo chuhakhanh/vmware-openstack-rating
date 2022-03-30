@@ -17,9 +17,11 @@
       
     - name: Make sure we have yum-utils
       yum: name=yum-utils state=latest
+      ignore_errors: yes
 
     - name: Make sure we have yum-plugin-priorities
       yum: name=yum-plugin-priorities state=latest    
-    
+      ignore_errors: yes
+      
     - name: upgrade all packages
       yum: name=* state=latest

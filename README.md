@@ -17,6 +17,7 @@ https://docs.ansible.com/ansible/latest/collections/openstack/cloud/index.html
 sudo dnf install python3-pip
 sudo dnf install python3-devel libffi-devel gcc openssl-devel python3-libselinux
 pip install git+https://opendev.org/openstack/kolla-ansible@stable/xena
+pip install python-openstackclient -c https://releases.openstack.org/constraints/upper/xena
 
 python3.8 -m venv /venv-2
 source /venv-2/bin/activate
@@ -64,8 +65,37 @@ cat ./kolla/globals.yml | grep . | grep -v "#"
 
 ## kolla_internal_vip_address: "10.1.17.52"
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 bootstrap-servers
-rm /var/run/libvirt/libvirt-sock
-chronyc tracking
+
+  
+    rm /var/run/libvirt/libvirt-sock
+#### disable prechecks_enable_host_ntp_checks: false
+    /venv-2/share/kolla-ansible/ansible/roles/prechecks/defaults/main.yml
+    prechecks_enable_host_ntp_checks: false
+ 
+
+ #### configure fix error local registry
+    mv /etc/systemd/system/docker.service /etc/systemd/system/docker.service_save; systemctl daemon-reload; systemctl restart docker; systemctl status docker
+    vi /etc/sysconfig/docker
+    vi /etc/docker/daemon.json
+    {
+        "bridge": "none",
+        "insecure-registries" : ["repo-1:4000"],
+        "ip-forward": false,
+        "iptables": false,
+        "log-opts": {
+            "max-file": "5",
+            "max-size": "50m"
+        }
+    }
+#### configure main.yml to use local repo docker    
+    vi /venv-2/share/kolla-ansible/ansible/roles/baremetal/defaults/main.yml
+    #docker_yum_url: "https://download.docker.com/linux/centos"
+    docker_yum_url: http://repo-1/2022_03/docker/docker
+    docker_yum_baseurl: "{{ docker_yum_url }}/$releasever/$basearch/stable"
+    docker_yum_gpgkey: "{{ docker_yum_url }}/gpg"
+    #docker_yum_gpgcheck: true
+    docker_yum_gpgcheck: no
+
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 prechecks
 kolla-ansible --configdir ./kolla -i ./all-in-one-control-2 deploy
 kolla-ansible post-deploy 
