@@ -104,7 +104,7 @@ demo_security_group_rules:
 demo_instances:
   - name: inst1
     image: cirros
-    flavor: tiny
+    flavor: x1.tiny
     network: provider-vlan111 
     security_groups: allow_ssh_icmp 
       
