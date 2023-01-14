@@ -11,7 +11,7 @@
         part_end: 10GB
   
     - name: Create a volume group on top of /dev/sdb1 with physical extent size = 32MB
-      community.general.lvg:
+      lvg:
         vg: cinder-volumes
         pvs: /dev/sdb1
         pesize: 32
